@@ -16,31 +16,54 @@ const Assistant = () => {
     e.preventDefault();
     if (!message.trim()) return;
 
+    console.log('💬 Iniciando chat com mensagem:', message);
     setLoading(true);
     setError('');
 
     try {
+      console.log('📤 Enviando mensagem para o servidor...');
       const response = await axios.post(
-        '/api/assistant/chat',
-        { message },
+        '/api/chat',
+        { 
+          mensagem: message,
+          nomeUsuario: '',
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`
           }
         }
       );
+      console.log('✅ Resposta recebida do servidor');
 
       setChatHistory([
         ...chatHistory,
         { role: 'user', content: message },
-        { role: 'assistant', content: response.data.response }
+        { role: 'assistant', content: response.data.resposta }
       ]);
       setMessage('');
     } catch (err) {
-      setError('Erro ao enviar mensagem. Tente novamente.');
-      console.error('Erro no chat:', err);
+      console.error('❌ Erro no chat:', err);
+      console.error('   Mensagem:', err.message);
+      console.error('   Stack:', err.stack);
+      
+      let mensagemErro = 'Erro ao enviar mensagem. ';
+      
+      if (err.response) {
+        console.error('   Status:', err.response.status);
+        console.error('   Dados:', err.response.data);
+        mensagemErro += `Status: ${err.response.status}. `;
+      }
+      
+      if (err.request) {
+        console.error('   Request:', err.request);
+        mensagemErro += 'Não foi possível conectar ao servidor. ';
+      }
+      
+      setError(mensagemErro + 'Tente novamente.');
     } finally {
       setLoading(false);
+      console.log('🏁 Chat finalizado');
     }
   };
 
@@ -98,14 +121,14 @@ const Assistant = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Digite sua mensagem..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="flex-1 p-2 border border-gray-300 rounded"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
           >
-            Enviar
+            {loading ? 'Enviando...' : 'Enviar'}
           </button>
         </form>
       </div>
