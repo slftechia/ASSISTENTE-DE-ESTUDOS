@@ -9,7 +9,9 @@ export const AdminAuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Configuração do axios
-    axios.defaults.baseURL = 'http://localhost:5001';
+    axios.defaults.baseURL = process.env.NODE_ENV === 'production'
+      ? 'https://assistente-estudos-backend.azurewebsites.net'
+      : 'http://localhost:5001';
     axios.defaults.withCredentials = true;
 
     // Configurar interceptor para adicionar token do admin
