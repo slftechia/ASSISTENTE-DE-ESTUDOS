@@ -42,156 +42,155 @@ function App() {
   const [chatOpen, setChatOpen] = useState(false);
   return (
     <Router>
-      <AuthProvider>
-        <AdminAuthProvider>
-          {/* <BtnEdital /> */}
-          <ChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)}>
-            <ChatAssistente onClose={() => setChatOpen(false)} />
-          </ChatModal>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route
-              path="/assistente"
-              element={
-                <PrivateRoute>
-                  <AssistenteEstudos />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/apostilas"
-              element={
-                <PrivateRoute>
-                  <Apostilas />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/apostilas/:cargo"
-              element={
-                <PrivateRoute>
-                  <Apostilas />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/simulados"
-              element={
-                <PrivateRoute>
-                  <Simulados />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/dicas/:cargo"
-              element={
-                <PrivateRoute>
-                  <DicasEstudo />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/videoaulas"
-              element={
-                <PrivateRoute>
-                  <Videoaulas />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/supervisor"
-              element={
-                <PrivateRoute>
-                  <AmbienteSupervisor />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/orientador"
-              element={
-                <PrivateRoute>
-                  <AmbienteOrientador />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/administrador"
-              element={
-                <PrivateRoute>
-                  <AmbienteAdministrador />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/auxiliar"
-              element={
-                <PrivateRoute>
-                  <AmbienteAuxiliar />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/professor_iniciais"
-              element={
-                <PrivateRoute>
-                  <AmbienteProfessorIniciais />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/professor_infantil"
-              element={
-                <PrivateRoute>
-                  <AmbienteProfessorInfantil />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/monitor"
-              element={
-                <PrivateRoute>
-                  <AmbienteMonitor />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/geral"
-              element={
-                <PrivateRoute>
-                  <AmbienteGeral />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/ambiente/:cargo"
-              element={
-                <PrivateRoute>
-                  <AmbienteGenerico />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/mapas-mentais"
-              element={
-                <PrivateRoute>
-                  <MapasMentais />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/admin-login" element={<AdminLogin />} />
-            <Route
-              path="/admin"
-              element={
-                <AdminPrivateRoute>
-                  <AdminPanel />
-                </AdminPrivateRoute>
-              }
-            />
-            {/* <Route path="/comunidade" element={<Comunidade />} /> */}
-          </Routes>
-        </AdminAuthProvider>
-      </AuthProvider>
+      <AdminAuthProvider>
+        {/* <AuthProvider> removido */}
+        {/* <BtnEdital /> */}
+        <ChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)}>
+          <ChatAssistente onClose={() => setChatOpen(false)} />
+        </ChatModal>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/assistente"
+            element={
+              <PrivateRoute>
+                <AssistenteEstudos />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/apostilas"
+            element={
+              <PrivateRoute>
+                <Apostilas />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/apostilas/:cargo"
+            element={
+              <PrivateRoute>
+                <Apostilas />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/simulados"
+            element={
+              <PrivateRoute>
+                <Simulados />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dicas/:cargo"
+            element={
+              <PrivateRoute>
+                <DicasEstudo />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/videoaulas"
+            element={
+              <PrivateRoute>
+                <Videoaulas />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/supervisor"
+            element={
+              <PrivateRoute>
+                <AmbienteSupervisor />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/orientador"
+            element={
+              <PrivateRoute>
+                <AmbienteOrientador />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/administrador"
+            element={
+              <PrivateRoute>
+                <AmbienteAdministrador />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/auxiliar"
+            element={
+              <PrivateRoute>
+                <AmbienteAuxiliar />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/professor_iniciais"
+            element={
+              <PrivateRoute>
+                <AmbienteProfessorIniciais />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/professor_infantil"
+            element={
+              <PrivateRoute>
+                <AmbienteProfessorInfantil />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/monitor"
+            element={
+              <PrivateRoute>
+                <AmbienteMonitor />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/geral"
+            element={
+              <PrivateRoute>
+                <AmbienteGeral />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ambiente/:cargo"
+            element={
+              <PrivateRoute>
+                <AmbienteGenerico />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/mapas-mentais"
+            element={
+              <PrivateRoute>
+                <MapasMentais />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminPrivateRoute>
+                <AdminPanel />
+              </AdminPrivateRoute>
+            }
+          />
+          {/* <Route path="/comunidade" element={<Comunidade />} /> */}
+        </Routes>
+      </AdminAuthProvider>
     </Router>
   );
 }
