@@ -1,36 +1,25 @@
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import MenuPage from './pages/MenuPage';
+import ChatPage from './pages/ChatPage';
+import ApostilasPage from './pages/ApostilasPage';
+import SimuladosPage from './pages/SimuladosPage';
+import DicasPage from './pages/DicasPage';
+import ComunidadePage from './pages/ComunidadePage';
 
 function App() {
-  const [mensagem, setMensagem] = useState('');
-  const [resposta, setResposta] = useState('');
-
-  const enviarPergunta = async () => {
-    const res = await fetch('http://localhost:5000/api/assistant/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: mensagem }),
-    });
-    const data = await res.json();
-    setResposta(data.response);
-  };
-
   return (
-    <div style={{ maxWidth: 600, margin: '40px auto', fontFamily: 'sans-serif' }}>
-      <h1>Assistente de Estudos</h1>
-      <textarea
-        value={mensagem}
-        onChange={e => setMensagem(e.target.value)}
-        placeholder="Digite sua pergunta..."
-        rows={4}
-        style={{ width: '100%', marginBottom: 12 }}
-      />
-      <br />
-      <button onClick={enviarPergunta} style={{ padding: '8px 16px', fontSize: 16 }}>Enviar</button>
-      <div style={{ marginTop: 24 }}>
-        <strong>Resposta:</strong>
-        <p>{resposta}</p>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/apostilas" element={<ApostilasPage />} />
+        <Route path="/simulados" element={<SimuladosPage />} />
+        <Route path="/dicas" element={<DicasPage />} />
+        <Route path="/comunidade" element={<ComunidadePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
