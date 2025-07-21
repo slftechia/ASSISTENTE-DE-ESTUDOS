@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,3 +19,6 @@ function MenuPage() {
 }
 
 export default MenuPage; 
+=======
+ 
+>>>>>>> aaafbec43ab72ad9305f0e7e0a1e92687b56a87a

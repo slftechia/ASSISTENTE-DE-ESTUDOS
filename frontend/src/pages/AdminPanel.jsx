@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import { useAuth } from '../contexts/AuthContext';
-
-export default function AdminPanel() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-=======
 import { useAdminAuth } from '../contexts/AdminAuthContext';
 
 export default function AdminPanel() {
   const navigate = useNavigate();
   const { logout } = useAdminAuth();
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -27,14 +19,6 @@ export default function AdminPanel() {
   const [showSenhaRequisitos, setShowSenhaRequisitos] = useState(false);
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (!user || user.email !== 'admin@admin.com') {
-      alert('Acesso restrito ao administrador.');
-      navigate('/');
-      return;
-    }
-=======
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
     fetchUsuarios();
     // eslint-disable-next-line
   }, []);
@@ -42,11 +26,7 @@ export default function AdminPanel() {
   const fetchUsuarios = async () => {
     setLoading(true);
     try {
-<<<<<<< HEAD
-      const res = await axios.get('/api/auth/admin/usuarios');
-=======
       const res = await axios.get('/api/auth/admin/public/usuarios');
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
       setUsuarios(res.data);
       setError('');
     } catch (err) {
@@ -58,11 +38,7 @@ export default function AdminPanel() {
   const handleRemove = async (id) => {
     if (!window.confirm('Tem certeza que deseja remover este usuário?')) return;
     try {
-<<<<<<< HEAD
-      await axios.delete(`/api/auth/admin/usuarios/${id}`);
-=======
       await axios.delete(`/api/auth/admin/public/usuarios/${id}`);
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
       fetchUsuarios();
     } catch {
       alert('Erro ao remover usuário.');
@@ -77,11 +53,7 @@ export default function AdminPanel() {
 
   const handleBlockToggle = async (usuario) => {
     try {
-<<<<<<< HEAD
-      await axios.put(`/api/auth/admin/usuarios/${usuario._id}`, {
-=======
       await axios.put(`/api/auth/admin/public/usuarios/${usuario._id}`, {
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
         ...usuario,
         pagamentoStatus: usuario.pagamentoStatus === 'ativo' ? 'pendente' : 'ativo',
       });
@@ -96,11 +68,7 @@ export default function AdminPanel() {
     setShowConversas(true);
     setUsuarioSelecionado(usuarios.find(u => u._id === userId));
     try {
-<<<<<<< HEAD
-      const res = await axios.get(`/api/auth/admin/conversas?userId=${userId}`);
-=======
       const res = await axios.get(`/api/auth/admin/public/conversas?userId=${userId}`);
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
       console.log('Conversas retornadas:', res.data);
       setConversas(res.data);
     } catch (error) {
@@ -113,29 +81,22 @@ export default function AdminPanel() {
   // Função para validar senha no frontend
   const validarSenhaFrontend = (senha) => {
     if (!senha) return [];
-    
     const erros = [];
-    
     if (senha.length < 8) {
       erros.push('A senha deve ter pelo menos 8 caracteres');
     }
-    
     if (!/[A-Z]/.test(senha)) {
       erros.push('A senha deve conter pelo menos uma letra maiúscula');
     }
-    
     if (!/[a-z]/.test(senha)) {
       erros.push('A senha deve conter pelo menos uma letra minúscula');
     }
-    
     if (!/\d/.test(senha)) {
       erros.push('A senha deve conter pelo menos um número');
     }
-    
     if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(senha)) {
       erros.push('A senha deve conter pelo menos um caractere especial (!@#$%^&*...)');
     }
-    
     const sequenciasNumericas = ['123', '321', '456', '654', '789', '987', '012', '210'];
     for (const seq of sequenciasNumericas) {
       if (senha.toLowerCase().includes(seq)) {
@@ -143,7 +104,6 @@ export default function AdminPanel() {
         break;
       }
     }
-    
     const sequenciasTeclado = ['qwe', 'ewq', 'asd', 'dsa', 'zxc', 'cxz', 'tyu', 'uyt', 'ghj', 'jhg', 'bnm', 'mnb'];
     for (const seq of sequenciasTeclado) {
       if (senha.toLowerCase().includes(seq)) {
@@ -151,7 +111,6 @@ export default function AdminPanel() {
         break;
       }
     }
-    
     const anoAtual = new Date().getFullYear();
     const anosAnteriores = [anoAtual - 1, anoAtual - 2, anoAtual - 3];
     for (const ano of anosAnteriores) {
@@ -160,28 +119,23 @@ export default function AdminPanel() {
         break;
       }
     }
-    
     const senhasComuns = [
       'password', 'senha', '123456', '12345678', 'qwerty', 'abc123', 'password123',
       'admin', 'administrator', 'user', 'usuario', 'test', 'teste', 'guest', 'convidado',
       'welcome', 'bemvindo', 'hello', 'ola', 'hi', 'oi', 'login', 'entrar', 'access',
       'acesso', 'secret', 'secreto', 'private', 'privado', 'public', 'publico'
     ];
-    
     if (senhasComuns.includes(senha.toLowerCase())) {
       erros.push('A senha não pode ser uma senha comum');
     }
-    
     if (/(.)\1{2,}/.test(senha)) {
       erros.push('A senha não pode conter caracteres repetidos (aaa, 111, etc.)');
     }
-    
     return erros;
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
     // Validar senha se fornecida
     if (formData.senha) {
       const errosSenha = validarSenhaFrontend(formData.senha);
@@ -192,18 +146,11 @@ export default function AdminPanel() {
         return;
       }
     }
-    
     try {
       if (editId) {
-<<<<<<< HEAD
-        await axios.put(`/api/auth/admin/usuarios/${editId}`, formData);
-      } else {
-        await axios.post('/api/auth/admin/usuarios', formData);
-=======
         await axios.put(`/api/auth/admin/public/usuarios/${editId}`, formData);
       } else {
         await axios.post('/api/auth/admin/public/usuarios', formData);
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
       }
       setShowForm(false);
       setEditId(null);
@@ -226,11 +173,7 @@ export default function AdminPanel() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Painel Administrativo</h1>
-<<<<<<< HEAD
-        <button onClick={logout} className="bg-red-500 text-white px-4 py-2 rounded">Sair</button>
-=======
         <button onClick={() => { logout(); navigate('/admin-login'); }} className="bg-red-500 text-white px-4 py-2 rounded">Voltar ao Início</button>
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
       </div>
       {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">{error}</div>}
       <button onClick={() => { setShowForm(true); setEditId(null); setFormData({ nome: '', email: '', senha: '', cargo: '', plano: 'Free', pagamentoStatus: 'ativo' }); }} className="mb-4 bg-blue-600 text-white px-4 py-2 rounded">Novo Usuário</button>
@@ -350,13 +293,6 @@ export default function AdminPanel() {
                 <td className="p-2">{u.cargo}</td>
                 <td className="p-2">{u.plano}</td>
                 <td className="p-2">{u.pagamentoStatus}</td>
-<<<<<<< HEAD
-                <td className="p-2 flex gap-2">
-                  <button onClick={() => handleEdit(u)} className="bg-yellow-500 text-white px-2 py-1 rounded">Editar</button>
-                  <button onClick={() => handleRemove(u._id)} className="bg-red-500 text-white px-2 py-1 rounded">Remover</button>
-                  <button onClick={() => handleBlockToggle(u)} className={`px-2 py-1 rounded ${u.pagamentoStatus === 'ativo' ? 'bg-gray-600 text-white' : 'bg-green-600 text-white'}`}>{u.pagamentoStatus === 'ativo' ? 'Bloquear' : 'Liberar'}</button>
-                  <button onClick={() => fetchConversas(u._id)} className="bg-blue-500 text-white px-2 py-1 rounded">Conversas</button>
-=======
                 <td className="p-2">
                   <div className="flex gap-2">
                     <button onClick={() => handleEdit(u)} className="bg-yellow-500 text-white px-2 py-1 rounded min-w-[100px]">Editar</button>
@@ -364,7 +300,6 @@ export default function AdminPanel() {
                     <button onClick={() => handleBlockToggle(u)} className={`px-2 py-1 rounded min-w-[100px] ${u.pagamentoStatus === 'ativo' ? 'bg-gray-600 text-white' : 'bg-green-600 text-white'}`}>{u.pagamentoStatus === 'ativo' ? 'Bloquear' : 'Liberar'}</button>
                     <button onClick={() => fetchConversas(u._id)} className="bg-blue-500 text-white px-2 py-1 rounded min-w-[100px]">Conversas</button>
                   </div>
->>>>>>> c68bf5ffcf69272ee1506eb836c6e495e946e06a
                 </td>
               </tr>
             ))}
@@ -373,4 +308,4 @@ export default function AdminPanel() {
       )}
     </div>
   );
-} 
+}
