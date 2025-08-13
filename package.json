@@ -33,6 +33,7 @@
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.16",
+    "picocolors": "^1.1.1",
     "postcss": "^8.4.31",
     "vite": "^5.0.0"
   }
